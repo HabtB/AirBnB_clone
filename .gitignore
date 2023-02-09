@@ -1,8 +1,7 @@
 cmd.txt
 */__pycache__/*
-*/*/__pycache__/*
+tests/test_models/__pycache__/*
 models/
-test_base_model.py
 */.idea/*
 */.vscode/*
 */.pytest_cache/*
