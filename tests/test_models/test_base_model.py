@@ -181,5 +181,106 @@ class TestBaseModelSave(unittest.TestCase):
     #         self.assertIn(base_model.id, file_handle.read())
 
 
+class TestBaseModelToDict(unittest.TestCase):
+    """Unittests for testing to_dict method of the BaseModel class."""
+
+    def test_to_dict_type(self):
+        """Test to_dict returns a dictionary"""
+        base_model = BaseModel()
+        self.assertTrue(dict, type(base_model.to_dict()))
+
+    def test_to_dict_contains_correct_keys(self):
+        """Test to_dict returns a dictionary with the correct keys"""
+        base_model = BaseModel()
+        self.assertIn("id", base_model.to_dict())
+        self.assertIn("created_at", base_model.to_dict())
+        self.assertIn("updated_at", base_model.to_dict())
+        self.assertIn("__class__", base_model.to_dict())
+
+    def test_to_dict_contains_correct_values(self):
+        """Test to_dict returns a dictionary with the correct values"""
+        base_model = BaseModel()
+        self.assertEqual(base_model.id, base_model.to_dict()["id"])
+        self.assertEqual(base_model.created_at.isoformat(),
+                         base_model.to_dict()["created_at"])
+        self.assertEqual(base_model.updated_at.isoformat(),
+                         base_model.to_dict()["updated_at"])
+        self.assertEqual("BaseModel", base_model.to_dict()["__class__"])
+
+    def test_to_dict_contains_added_attributes(self):
+        """Test to_dict returns a dictionary with added attributes"""
+        base_model = BaseModel()
+        base_model.name = "ALX"
+        base_model.my_number = 98
+        self.assertIn("name", base_model.to_dict())
+        self.assertIn("my_number", base_model.to_dict())
+
+    def test_to_dict_contains_no_extra_keys(self):
+        """Test to_dict returns a dictionary with no extra keys"""
+        base_model = BaseModel()
+        self.assertEqual(len(base_model.to_dict()), 4)
+
+    def test_to_dict_returns_new_dict(self):
+        """Test to_dict returns a new dictionary"""
+        base_model = BaseModel()
+        self.assertIsNot(base_model.to_dict(), base_model.__dict__)
+
+    def test_to_dict_returns_dict_with_correct_format(self):
+        """Test to_dict returns a dictionary with the correct format"""
+        base_model = BaseModel()
+        base_model_dict = base_model.to_dict()
+        self.assertEqual(base_model_dict["__class__"], "BaseModel")
+        self.assertEqual(type(base_model_dict["created_at"]), str)
+        self.assertEqual(type(base_model_dict["updated_at"]), str)
+
+    def test_to_dict_returns_dict_with_correct_values(self):
+        """Test to_dict returns a dictionary with the correct values"""
+        base_model = BaseModel()
+        base_model_dict = base_model.to_dict()
+        self.assertEqual(base_model_dict["id"], base_model.id)
+        self.assertEqual(base_model_dict["created_at"],
+                         base_model.created_at.isoformat())
+        self.assertEqual(base_model_dict["updated_at"],
+                         base_model.updated_at.isoformat())
+
+    def test_to_dict_returns_dict_with_correct_keys(self):
+        """Test to_dict returns a dictionary with the correct keys"""
+        base_model = BaseModel()
+        base_model_dict = base_model.to_dict()
+        self.assertIn("id", base_model_dict)
+        self.assertIn("created_at", base_model_dict)
+        self.assertIn("updated_at", base_model_dict)
+        self.assertIn("__class__", base_model_dict)
+
+    def test_to_dict_output(self):
+        """Test to_dict output"""
+        date_time = datetime.today()
+        base_model = BaseModel()
+        base_model.id = "123456"
+        base_model.created_at = base_model.updated_at = date_time
+        tdict = {
+            'id': '123456',
+            '__class__': 'BaseModel',
+            'created_at': date_time.isoformat(),
+            'updated_at': date_time.isoformat()
+        }
+        self.assertDictEqual(base_model.to_dict(), tdict)
+
+    def test_to_dict_returns_dict_with_no_extra_keys(self):
+        """Test to_dict returns a dictionary with no extra keys"""
+        base_model = BaseModel()
+        base_model_dict = base_model.to_dict()
+        self.assertEqual(len(base_model_dict), 4)
+
+    def test_to_dict_returns_dict_with_correct_types(self):
+        """Test to_dict returns a dictionary with the correct types"""
+        base_model = BaseModel()
+        base_model_dict = base_model.to_dict()
+        self.assertEqual(type(base_model_dict["id"]), str)
+        self.assertEqual(type(base_model_dict["created_at"]), str)
+        self.assertEqual(type(base_model_dict["updated_at"]), str)
+        self.assertEqual(type(base_model_dict["__class__"]), str)
+
+
 if __name__ == "__main__":
     unittest.main()
