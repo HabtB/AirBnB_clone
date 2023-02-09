@@ -1,0 +1,17 @@
+cmd.txt
+*/__pycache__/*
+tests/test_models/__pycache__/*
+models/
+*/.idea/*
+*/.vscode/*
+*/.pytest_cache/*
+*/.coverage
+*/.coverage.*
+*/.cache/*
+*/.mypy_cache/*
+*/.tox/*
+*/.nox/*
+*/.hypothesis/*
+*/.pytest_cache/*
+*/.benchmarks/*
+*/.
