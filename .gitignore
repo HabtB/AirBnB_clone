@@ -1,6 +1,7 @@
 cmd.txt
 */__pycache__/*
 tests/test_models/__pycache__/*
+tests/test_engine/__pycache__/*
 models/
 */.idea/*
 */.vscode/*
@@ -15,3 +16,6 @@ models/
 */.pytest_cache/*
 */.benchmarks/*
 */.
+test_save_reload_base_model.py
+tmp
+file.json
