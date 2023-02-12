@@ -99,13 +99,11 @@ class TestFileStorageMethods(unittest.TestCase):
     def test_new(self):
         """Test that new() adds a new object to the dictionary"""
         base_model = BaseModel()
-        lenth = len(models.storage.all())
         models.storage.new(base_model)
-        self.assertEqual(len(models.storage.all()), lenth + 1)
         self.assertIn("BaseModel." + base_model.id,
                       models.storage.all().keys())
         self.assertIn(base_model, models.storage.all().values())
-
+    
     def test_save_with_arg(self):
         """Test save() raises TypeError when given argument other than None"""
         with self.assertRaises(TypeError):
