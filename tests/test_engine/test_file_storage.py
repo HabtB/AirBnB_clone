@@ -12,7 +12,12 @@ from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 import models
-
+from models.user import User
+from models.state import State
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 class TestFileStorageInstantiation(unittest.TestCase):
     """Unittests for testing instantiation of the FileStorage class."""
@@ -99,10 +104,40 @@ class TestFileStorageMethods(unittest.TestCase):
     def test_new(self):
         """Test that new() adds a new object to the dictionary"""
         base_model = BaseModel()
+        user_model = User()
+        state_model = State()
+        place_model = Place()
+        city_model = City()
+        amenity_model = Amenity()
+        review_model = Review()    
         models.storage.new(base_model)
+        models.storage.new(user_model)
+        models.storage.new(state_model)
+        models.storage.new(place_model)
+        models.storage.new(city_model)
+        models.storage.new(amenity_model)
+        models.storage.new(review_model)
         self.assertIn("BaseModel." + base_model.id,
                       models.storage.all().keys())
+        self.assertIn("User." + user_model.id,
+                      models.storage.all().keys())
+        self.assertIn("State." + state_model.id,
+                      models.storage.all().keys())
+        self.assertIn("Place." + place_model.id,
+                      models.storage.all().keys())
+        self.assertIn("City." + city_model.id,
+                      models.storage.all().keys())
+        self.assertIn("Amenity." + amenity_model.id,
+                      models.storage.all().keys())
+        self.assertIn("Review." + review_model.id,
+                      models.storage.all().keys())
         self.assertIn(base_model, models.storage.all().values())
+        self.assertIn(user_model, models.storage.all().values())
+        self.assertIn(state_model, models.storage.all().values())
+        self.assertIn(place_model, models.storage.all().values())
+        self.assertIn(city_model, models.storage.all().values())
+        self.assertIn(amenity_model, models.storage.all().values())
+        self.assertIn(review_model, models.storage.all().values())
     
     def test_save_with_arg(self):
         """Test save() raises TypeError when given argument other than None"""
@@ -112,10 +147,32 @@ class TestFileStorageMethods(unittest.TestCase):
     def test_save(self):
         """Test save() correctly serializes the dictionary to a JSON file"""
         base_model = BaseModel()
+        user_model = User()
+        state_model = State()
+        place_model = Place()
+        city_model = City()
+        amenity_model = Amenity()
+        review_model = Review()    
         models.storage.new(base_model)
+        models.storage.new(user_model)
+        models.storage.new(state_model)
+        models.storage.new(place_model)
+        models.storage.new(city_model)
+        models.storage.new(amenity_model)
+        models.storage.new(review_model)
         models.storage.save()
+        saved_text = ""
         with open("file.json", "r") as file_handle:
-            self.assertIn("BaseModel." + base_model.id, file_handle.read())
+            saved_text = file_handle.read()
+            self.assertIn("BaseModel." + base_model.id, saved_text)
+            self.assertIn("User." + user_model.id, saved_text)
+            self.assertIn("State." + state_model.id, saved_text)
+            self.assertIn("Place." + place_model.id, saved_text)
+            self.assertIn("City." + city_model.id, saved_text)
+            self.assertIn("Amenity." + amenity_model.id, saved_text)
+            self.assertIn("Review." + review_model.id, saved_text)
+
+
 
     def test_reload_with_arg(self):
         """Test reload() raises TypeError if given argument other than None"""
@@ -125,14 +182,58 @@ class TestFileStorageMethods(unittest.TestCase):
     def test_reload(self):
         """Test reload() correctly deserializes the JSON file to dictionary"""
         base_model = BaseModel()
+        user_model = User()
+        state_model = State()
+        place_model = Place()
+        city_model = City()
+        amenity_model = Amenity()
+        review_model = Review()    
         models.storage.new(base_model)
+        models.storage.new(user_model)
+        models.storage.new(state_model)
+        models.storage.new(place_model)
+        models.storage.new(city_model)
+        models.storage.new(amenity_model)
+        models.storage.new(review_model)
         models.storage.save()
         models.storage.reload()
         objs = FileStorage._FileStorage__objects
         self.assertIn("BaseModel." + base_model.id, objs)
+        self.assertIn("User." + user_model.id, objs)
+        self.assertIn("State." + state_model.id, objs)
+        self.assertIn("Place." + place_model.id, objs)
+        self.assertIn("City." + city_model.id, objs)
+        self.assertIn("Amenity." + amenity_model.id, objs)
+        self.assertIn("Review." + review_model.id, objs)
+
         self.assertIn("BaseModel." + base_model.id,
                       models.storage.all().keys())
+        self.assertIn("User." + user_model.id,
+                      models.storage.all().keys())
+        self.assertIn("State." + state_model.id,
+                      models.storage.all().keys())
+        self.assertIn("Place." + place_model.id,
+                      models.storage.all().keys())
+        self.assertIn("City." + city_model.id,
+                      models.storage.all().keys())
+        self.assertIn("Amenity." + amenity_model.id,
+                      models.storage.all().keys())
+        self.assertIn("Review." + review_model.id,
+                      models.storage.all().keys())
+        
         self.assertIn(base_model.to_dict(), [
+                      v.to_dict() for v in models.storage.all().values()])
+        self.assertIn(user_model.to_dict(), [
+                      v.to_dict() for v in models.storage.all().values()])
+        self.assertIn(state_model.to_dict(), [
+                      v.to_dict() for v in models.storage.all().values()])
+        self.assertIn(place_model.to_dict(), [
+                      v.to_dict() for v in models.storage.all().values()])
+        self.assertIn(city_model.to_dict(), [
+                      v.to_dict() for v in models.storage.all().values()])
+        self.assertIn(amenity_model.to_dict(), [
+                      v.to_dict() for v in models.storage.all().values()])
+        self.assertIn(review_model.to_dict(), [
                       v.to_dict() for v in models.storage.all().values()])
 
 
