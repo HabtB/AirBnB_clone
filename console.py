@@ -7,6 +7,7 @@ import json
 
 
 class HBNBCommand(cmd.Cmd):
+    """ a simple command line interface for the the BaseModel """
     prompt = "(hbnb)  "
 
     def do_quit(self, line):
@@ -19,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Create command creates a new instance of the BaseModel \
-saves it (to the JSON file) and prints the id.
+        saves it (to the JSON file) and prints the id.
         """
         class_name = line.strip()
 
@@ -35,7 +36,7 @@ saves it (to the JSON file) and prints the id.
 
     def do_show(self, line):
         """Show command prints the string representation of an instance \
-based on the class name and id"""
+        based on the class name and id"""
 
         if not line:
             print("** class name missing **")
@@ -58,6 +59,19 @@ based on the class name and id"""
     def do_destroy(self, line):
         """Destroy command deletes the instance based on the class name and id
         """
+        objdict = storage.all()
+        line = line.split()
+        if len(line) == 0:
+            print("** class name missing **")
+        elif line[0] not in storage.class_names():
+            print("** class doesn't exist **")
+        elif len(line) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(line[0], line[1]) not in objdict.keys():
+            print("** no instance found **")
+        else:
+            del objdict["{}.{}".format(line[0], line[1])]
+            storage.save()
 
     def do_all(self, line):
         """All command prints string representation of all instances"""
