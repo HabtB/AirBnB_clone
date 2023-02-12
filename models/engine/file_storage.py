@@ -42,7 +42,7 @@ class FileStorage:
         class_names = {"BaseModel": BaseModel,
                        "User": User,
                        "State": State,
-                       "City":City,
+                       "City": City,
                        "Amenity": Amenity,
                        "Place": Place,
                        "Review": Review}

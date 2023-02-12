@@ -19,6 +19,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class TestFileStorageInstantiation(unittest.TestCase):
     """Unittests for testing instantiation of the FileStorage class."""
 
@@ -109,7 +110,7 @@ class TestFileStorageMethods(unittest.TestCase):
         place_model = Place()
         city_model = City()
         amenity_model = Amenity()
-        review_model = Review()    
+        review_model = Review()
         models.storage.new(base_model)
         models.storage.new(user_model)
         models.storage.new(state_model)
@@ -138,7 +139,7 @@ class TestFileStorageMethods(unittest.TestCase):
         self.assertIn(city_model, models.storage.all().values())
         self.assertIn(amenity_model, models.storage.all().values())
         self.assertIn(review_model, models.storage.all().values())
-    
+
     def test_save_with_arg(self):
         """Test save() raises TypeError when given argument other than None"""
         with self.assertRaises(TypeError):
@@ -152,7 +153,7 @@ class TestFileStorageMethods(unittest.TestCase):
         place_model = Place()
         city_model = City()
         amenity_model = Amenity()
-        review_model = Review()    
+        review_model = Review()
         models.storage.new(base_model)
         models.storage.new(user_model)
         models.storage.new(state_model)
@@ -172,8 +173,6 @@ class TestFileStorageMethods(unittest.TestCase):
             self.assertIn("Amenity." + amenity_model.id, saved_text)
             self.assertIn("Review." + review_model.id, saved_text)
 
-
-
     def test_reload_with_arg(self):
         """Test reload() raises TypeError if given argument other than None"""
         with self.assertRaises(TypeError):
@@ -187,7 +186,7 @@ class TestFileStorageMethods(unittest.TestCase):
         place_model = Place()
         city_model = City()
         amenity_model = Amenity()
-        review_model = Review()    
+        review_model = Review()
         models.storage.new(base_model)
         models.storage.new(user_model)
         models.storage.new(state_model)
@@ -220,7 +219,7 @@ class TestFileStorageMethods(unittest.TestCase):
                       models.storage.all().keys())
         self.assertIn("Review." + review_model.id,
                       models.storage.all().keys())
-        
+
         self.assertIn(base_model.to_dict(), [
                       v.to_dict() for v in models.storage.all().values()])
         self.assertIn(user_model.to_dict(), [
