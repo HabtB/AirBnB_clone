@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """A base class, BaseModel, for the AirBnB project """
-
-
 from datetime import datetime
 import uuid
+from models import storage
 
 
 class BaseModel:
@@ -26,6 +25,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            storage.new(self)
 
     def __str__(self):
         return f'{self.__class__.__name__} {self.id} {self.__dict__}'
@@ -33,6 +33,7 @@ class BaseModel:
     def save(self):
         """ updates the time when it object gets updated """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """ returns the .__dict__ values of all instances created"""

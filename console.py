@@ -3,6 +3,7 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+import json
 
 
 class HBNBCommand(cmd.Cmd):
@@ -24,10 +25,10 @@ saves it (to the JSON file) and prints the id.
 
         if not line:
             print("** class name missing **")
-        elif class_name not in storage.class_def():
+        elif class_name not in storage.class_names():
             print("** class doesn't exist **")
         else:
-            class_type = storage.class_def()[class_name]
+            class_type = storage.class_names()[class_name]
             instance = class_type()
             instance.save()
             print(instance.id)
@@ -40,12 +41,12 @@ based on the class name and id"""
             print("** class name missing **")
         else:
             class_list = line.split()
-                
-            if class_list[0] not in storage.class_def():
+
+            if class_list[0] not in storage.class_names():
                 print("** class doesn't exist **")
             elif (len(class_list) < 2):
-                    print("** instance id missing **")
-            else: 
+                print("** instance id missing **")
+            else:
                 key = f"{class_list[0]}.{class_list[1]}"
                 instance = storage.all().get(key)
 
@@ -63,5 +64,7 @@ based on the class name and id"""
 
     def do_update(self, line):
         """Update command updates instances based on the class name and id"""
+
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
