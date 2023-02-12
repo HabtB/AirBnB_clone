@@ -8,7 +8,7 @@ import json
 
 class HBNBCommand(cmd.Cmd):
     """ a simple command line interface for the the BaseModel """
-    prompt = "(hbnb)  "
+    prompt = "(hbnb) "
 
     def do_quit(self, line):
         """Quit command to exit the program """
@@ -87,27 +87,6 @@ class HBNBCommand(cmd.Cmd):
                     print(value)
         else:
             print("** class doesn't exist **")
-
-    # def do_update(self, line):
-    #     """Update command updates instances based on the class name and id"""
-    #     objdict = storage.all()
-    #     line = line.split()
-    #     if len(line) == 0:
-    #         print("** class name missing **")
-    #     elif line[0] not in storage.class_names():
-    #         print("** class doesn't exist **")
-    #     elif len(line) == 1:
-    #         print("** instance id missing **")
-    #     elif "{}.{}".format(line[0], line[1]) not in objdict.keys():
-    #         print("** no instance found **")
-    #     elif len(line) == 2:
-    #         print("** attribute name missing **")
-    #     elif len(line) == 3:
-    #         print("** value missing **")
-    #     else:
-    #         objdict["{}.{}".format(line[0], line[1])].__dict__[line[2]] = \
-    #             line[3].replace("_", " ")
-    #         storage.save()
 
     def do_update(self, line):
         """Update command updates instances based on the class name and id"""
