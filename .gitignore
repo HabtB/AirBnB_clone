@@ -19,8 +19,4 @@ models/
 test_save_reload_base_model.py
 tmp
 file.json
-tests/test_models/test_amenity.py
-tests/test_models/test_city.py
-tests/test_models/test_place.py
-tests/test_models/test_review.py
-tests/test_models/test_state.py
+tsts
