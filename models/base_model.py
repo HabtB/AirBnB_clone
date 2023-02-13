@@ -28,7 +28,7 @@ class BaseModel:
             storage.new(self)
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.id} {self.__dict__}'
+        return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
 
     def save(self):
         """ updates the time when it object gets updated """
