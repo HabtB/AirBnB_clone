@@ -18,6 +18,10 @@ class HBNBCommand(cmd.Cmd):
         """EOF command exits the program """
         return True
 
+    def emptyline(self):
+        """ Doesn't do anything on ENTER."""
+        pass
+
     def do_create(self, line):
         """Create command creates a new instance of the BaseModel \
         saves it (to the JSON file) and prints the id.
@@ -59,6 +63,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Destroy command deletes the instance based on the class name and id
         """
+
         objdict = storage.all()
         line = line.split()
         if len(line) == 0:
