@@ -58,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
                 if not instance:
                     print("** no instance found **")
                 else:
-                    print(instance)
+                    print(storage.all()[key])
 
     def do_destroy(self, line):
         """Destroy command deletes the instance based on the class name and id
