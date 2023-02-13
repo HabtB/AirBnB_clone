@@ -44,19 +44,19 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(place_instance, Place)
         self.assertTrue(issubclass(type(place_instance), BaseModel))
 
-    def test_user_attributes(self):
+    def test_place_attributes(self):
         place = Place()
-        self.assertEqual(place.city_id, default_city_id)
-        self.assertEqual(place.user_id, default_user_id)
-        self.assertEqual(place.name, default_city_name)
-        self.assertEqual(place.description, default_description)
-        self.assertEqual(place.number_rooms, default_number_rooms)
-        self.assertEqual(place.number_bathrooms, default_bath_rooms)
-        self.assertEqual(place.max_guest, default_max_guest)
-        self.assertEqual(place.price_by_night, default_price_by_night)
-        self.assertEqual(place.latitude, default_latitude)
-        self.assertEqual(place.longitude, default_longitude)
-        self.assertEqual(place.amenity_ids, default_amenity_ids)
+        self.assertEqual(place.city_id, self.default_city_id)
+        self.assertEqual(place.user_id, self.default_user_id)
+        self.assertEqual(place.name, self.default_place_name)
+        self.assertEqual(place.description, self.default_description)
+        self.assertEqual(place.number_rooms, self.default_number_rooms)
+        self.assertEqual(place.number_bathrooms, self.default_number_bathrooms)
+        self.assertEqual(place.max_guest, self.default_max_guest)
+        self.assertEqual(place.price_by_night, self.default_price_by_night)
+        self.assertEqual(place.latitude, self.default_latitude)
+        self.assertEqual(place.longitude, self.default_longitude)
+        self.assertEqual(place.amenity_ids, self.default_amenity_ids)
 
     def test_setting_attributes(self):
         place = Place()
@@ -88,11 +88,11 @@ class TestUser(unittest.TestCase):
         self.assertEqual(place.description, test_description)
         self.assertEqual(place.number_rooms, test_number_rooms)
         self.assertEqual(place.number_bathrooms, test_number_bathrooms)
-        self.assertEqual(place.max_guest, st)
+        self.assertEqual(place.max_guest, test_max_guest)
         self.assertEqual(place.price_by_night, test_price_by_night)
         self.assertEqual(place.latitude, test_latitude)
         self.assertEqual(place.longitude, test_longitude)
-        self.assertEqual(user.amenity_name, test_amenity_ids)
+        self.assertEqual(place.amenity_ids, test_amenity_ids)
 
 
 if __name__ == "__main__":
