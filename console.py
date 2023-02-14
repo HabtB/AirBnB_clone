@@ -42,6 +42,36 @@ class HBNBCommand(cmd.Cmd):
         self.onecmd(command)
         return command
 
+    def update_dict(self, classname, uid, s_dict):
+        """Helper method for update() with a dictionary."""
+
+        s = s_dict.replace("'", '"')
+        d = json.loads(s)
+
+        if not classname:
+            print("** class name missing **")
+            return
+
+        if classname not in storage.class_names():
+            print(f"** class {classname} doesn't exist **")
+            return
+
+        if not uid:
+            print("** instance id missing **")
+            return
+
+        key = f"{classname}.{uid}"
+        if key not in storage.all():
+            print("** no instance found **")
+            return
+
+        attributes = storage.attributes()[classname]
+        for attribute, value in d.items():
+            if attribute in attributes:
+                value = attributes[attribute](value)
+            setattr(storage.all()[key], attribute, value)
+        storage.all()[key].save()
+
     def do_quit(self, line):
         """Quit command to exit the program """
         return True
