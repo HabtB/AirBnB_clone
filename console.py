@@ -10,6 +10,38 @@ class HBNBCommand(cmd.Cmd):
     """ a simple command line interface for the the BaseModel """
     prompt = "(hbnb) "
 
+    def default(self, line):
+        """Catch commands if nothing else matches then."""
+
+        self._precmd(line)
+
+    def _precmd(self, line):
+        words = line.split('.')
+
+        if len(words) != 2:
+            return line
+        classname, rest = words
+        method, args = rest.split('(', 1)
+
+        if not args.endswith(')'):
+            return line
+        args = args[:-1]
+        if '"' in args:
+            uid, attr_or_dict = args.split('"', 1)[1].split('"', 1)
+        else:
+            uid, attr_or_dict = args, ''
+        if method == 'update' and attr_or_dict.startswith('{')\
+                     and attr_or_dict.endswith('}'):
+            self.update_dict(classname, uid, attr_or_dict)
+            return ''
+        attr, value = '', ''
+        if ',' in attr_or_dict:
+            attr, value = attr_or_dict.split(',', 1)
+            attr, value = attr.strip(), value.strip()
+        command = f'{method} {classname} {uid} {attr} {value}'
+        self.onecmd(command)
+        return command
+
     def do_quit(self, line):
         """Quit command to exit the program """
         return True
@@ -130,6 +162,19 @@ class HBNBCommand(cmd.Cmd):
             else:
                 setattr(instance, line[2], value)
                 instance.save()
+
+    def do_count(self, line):
+        """Counts the instances of a class."""
+
+        class_name, *args = line.split()
+        if not class_name:
+            print("** class name missing **")
+        elif class_name not in storage.class_names():
+            print(f"** class '{class_name}' doesn't exist **")
+        else:
+            count = sum(1 for key in storage.all()
+                        if key.startswith(f"{class_name}."))
+            print(count)
 
 
 if __name__ == '__main__':
